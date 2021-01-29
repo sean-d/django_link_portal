@@ -1,9 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from .models import Category
 
 
 def portal_index(request):
-    context = {"boldmessage": "why hello there"}
+    category_list = Category.objects.order_by("-likes")
+    context = {"boldmessage": "why hello there", "category_list": category_list}
     return render(request, "portal/index.html", context=context)
 
 

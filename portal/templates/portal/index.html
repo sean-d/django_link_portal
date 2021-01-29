@@ -8,5 +8,15 @@
         {{ boldmessage }}
         <div><a href="about/">about page</a></div>
         <img src="{%static 'images/girbot.jpg'%}"/>
+
+        <div>
+        {% if category_list %}
+            {% for category in category_list %}
+                <li>{{ category }}</li>
+            {% endfor %}
+        {% else %}
+            There are no categories to display.
+        {% endif %}
+        </div>
     </body>
 </html>
