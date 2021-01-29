@@ -1,22 +1,38 @@
 <!DOCTYPE HTML>
 {% load staticfiles %}
 <html>
-    <head>
-        <title>PORTAL INDEX PAGE</title>
-    </head>
-    <body>
-        {{ boldmessage }}
-        <div><a href="about/">about page</a></div>
-        <img src="{%static 'images/girbot.jpg'%}"/>
+<head>
+    <title>PORTAL INDEX PAGE</title>
+</head>
+<body>
+{{ boldmessage }}
+<div><a href="about/">about page</a></div>
 
-        <div>
-        {% if category_list %}
-            {% for category in category_list %}
-                <li>{{ category }}</li>
-            {% endfor %}
-        {% else %}
-            There are no categories to display.
-        {% endif %}
-        </div>
-    </body>
+<div>
+    <h2>Most Liked Categories</h2>
+    {% if category_list %}
+        {% for category in category_list %}
+            <li><a href="/portal/category/{{ category.slug }}/">{{ category.name }}</a></li>
+        {% endfor %}
+    {% else %}
+        <h2>There are no categories to display.</h2>
+    {% endif %}
+</div>
+
+<div>
+    {% if page_list %}
+        <h2>Top 5 Viewed Pages</h2>
+        {% for page in page_list %}
+            <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+        {% endfor %}
+
+    {% else %}
+        <h2>Sorry, there are currently no pages.</h2>
+    {% endif %}
+</div>
+
+<img src="{% static 'images/girbot.jpg' %}"/>
+
+
+</body>
 </html>

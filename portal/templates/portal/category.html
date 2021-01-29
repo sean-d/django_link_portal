@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Categories</title>
+</head>
+<body>
+    {% if category %}
+        <h1>{{ category.name }}</h1>
+        {% if pages %}
+        {% for page in pages %}
+            <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+        {% endfor %}
+        {% else %}
+            THERE ARE NO PAGES IN THIS CATEGORY
+        {% endif %}
+    {% else %}
+        THERE IS NO CATEGORY MATCHING YOUR QUERY
+    {% endif %}
+</body>
+</html>
