@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render, reverse
 from .models import Category, Page
+from .forms import CategoryForm, PageForm
 
 
 def portal_index(request):
@@ -27,3 +28,43 @@ def portal_show_category(request, slug):
         context["pages"] = None
 
     return render(request, "portal/category.html", context=context)
+
+
+def portal_add_category(request):
+    form = CategoryForm()
+
+    if request.method == "POST":
+        form = CategoryForm(request.POST)
+
+        if form.is_valid():
+            form.save(commit=True)
+            return redirect("/portal/")
+        else:
+            print(form.errors)
+    return render(request, "portal/add_category.html", {"form": form})
+
+
+def portal_add_page(request, slug):
+    try:
+        category = Category.objects.get(slug=slug)
+    except Category.DoesNotExist:
+        category = None
+
+    if category is None:
+        return redirect('/portal/')
+
+    form = PageForm()
+
+    if request.method == 'POST':
+        form = PageForm(request.POST)
+        if form.is_valid():
+            if category:
+                page = form.save(commit=False)
+                page.category = category
+                page.save()
+                return redirect(reverse('portal:portal_show_category',
+                                        kwargs={'slug': slug}))
+    else:
+        print(form.errors)
+    context_dict = {'form': form, 'category': category}
+    return render(request, 'portal/add_page.html', context=context_dict)

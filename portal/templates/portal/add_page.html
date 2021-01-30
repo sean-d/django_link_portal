@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Page</title>
+</head>
+<body>
+    <div>
+        <h1>Add a Page</h1>
+        <form id="page_form" method="post" action="/portal/category/{{ category.slug }}/add_page/">
+            {% csrf_token %}
+            {% for visible_field in form.visible_fields %}
+                {{ visible_field.errors }}
+                {{ visible_field.help_text }}
+                {{ visible_field }}
+            {% endfor %}
+            <input type="submit" name="submit" value="Create Page">
+        </form>
+    </div>
+</body>
+</html>
