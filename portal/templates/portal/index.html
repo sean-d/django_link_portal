@@ -1,13 +1,6 @@
-<!DOCTYPE HTML>
+{% extends "portal/base.html" %}
 {% load staticfiles %}
-<html>
-<head>
-    <title>PORTAL INDEX PAGE</title>
-</head>
-<body>
-{{ boldmessage }}
-<div><a href="{% url 'portal:portal_about' %}">about page</a> | <a href="{% url 'portal:portal_add_category' %}">add a new category</div>
-
+{% block body_block %}
 <div>
     <h2>Most Liked Categories</h2>
     {% if category_list %}
@@ -32,7 +25,7 @@
 </div>
 
 <img src="{% static 'images/girbot.jpg' %}"/>
-
+{% endblock %}
 
 </body>
 </html>
