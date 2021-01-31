@@ -1,8 +1,9 @@
 {% extends "portal/base.html" %}
 {% load staticfiles %}
 {% block body_block %}
+
 <div>
-    <h2>Most Liked Categories</h2>
+    <h2>Categories by Popularity</h2>
     {% if category_list %}
         {% for category in category_list %}
             <li><a href="{% url 'portal:portal_show_category' category.slug %}">{{ category.name }}</a></li>

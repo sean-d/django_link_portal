@@ -1,0 +1,15 @@
+<ul>
+    {% if categories %}
+        {% for category in categories %}
+            {% if category == current_category %}
+                <li>
+                    <strong><a href="{% url 'portal:portal_show_category' category.slug %}">{{ category.name }}</a></strong>
+                </li>
+            {% else %}
+                <li><a href="{% url 'portal:portal_show_category' category.slug %}">{{ category.name }}</a></li>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <h1>There are no categories.</h1>
+    {% endif %}
+</ul>

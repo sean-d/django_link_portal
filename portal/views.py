@@ -3,15 +3,18 @@ from .models import Category, Page
 from .forms import CategoryForm, PageForm
 
 
+def portal_about(request):
+    print(request.method)
+    print(request.user)
+    print(request.user.is_authenticated)
+    return render(request, "portal/about.html", {"aboutmessage": "welcome to about page."})
+
+
 def portal_index(request):
     category_list = Category.objects.order_by("-likes")
     page_list = Page.objects.order_by("-views")[:5]
     context = {"boldmessage": "why hello there", "category_list": category_list, "page_list": page_list}
     return render(request, "portal/index.html", context=context)
-
-
-def portal_about(request):
-    return render(request, "portal/about.html", {"aboutmessage": "welcome to about page."})
 
 
 def portal_show_category(request, slug):
